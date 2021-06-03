@@ -10,22 +10,24 @@ module.exports = merge(common, {
     devtool: false,
     output: {
         path: paths.build,
-        publicPath: '/',
-        filename: 'js/[name].[contenthash].bundle.js'
+        publicPath: './',
+        filename: 'js/[name].[contenthash].bundle.js',
     },
     module: {
         rules: [
             {
                 test: /\.(scss|css)$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../',
+                        },
+                    },
                     {
                         loader: 'css-loader',
                         options: {
-                            publicPath: '../',
-                            importLoaders: 2,
                             sourceMap: false,
-                            modules: true,
                         },
                     },
                     'postcss-loader',
